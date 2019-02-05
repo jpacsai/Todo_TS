@@ -7,5 +7,16 @@
 .App-form {
   width: 300px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+}
+
+.App-input {
+  width: 75%;
+}
+
+.App-list {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
