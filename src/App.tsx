@@ -9,7 +9,7 @@ class App extends Component {
           <h1>Shopping List</h1>
         </header>
         <form className="App-form">
-          <input type="text" name="item" value=""/>
+          <input type="text" name="item"/>
           <input type="submit" value="Submit"/>
         </form> 
       </div>
