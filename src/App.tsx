@@ -4,10 +4,19 @@ import { State } from './store';
 import { addTodo } from './store/actions';
 import './App.css';
 
-const mapStateToProps = (state: State) => ({ todos });
+const mapStateToProps = (state: State) => ({ todos: state.todos });
 const mapDispatchToProps = { addTodo };
 
-class App extends React.PureComponent {
+type AppProps = {
+  todos: string[]
+  addTodo: typeof addTodo
+}
+
+type AppState = {
+  textInput: string
+}
+
+class App extends React.PureComponent<AppProps, AppState> {
   state = {
     textInput: ''
   }
@@ -18,12 +27,13 @@ class App extends React.PureComponent {
     if (!textInput.trim()) {
       return
     }
-    addTodo(textInput)
+    this.props.addTodo(textInput)
     this.setState({textInput: ''})
   }
 
   render() {
     const { textInput } = this.state;
+    const { todos } = this.props;
 
     return (
       <div className="App">
