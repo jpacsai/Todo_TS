@@ -21,6 +21,12 @@ class App extends React.PureComponent<AppProps, AppState> {
     textInput: ''
   }
 
+  handleChange = (evt: any) => {
+    const { textInput } = this.state;
+    evt.preventDefault();
+    this.setState({textInput: evt.target.value})
+  }
+
   handleSubmit = (evt: any) =>  {
     const { textInput } = this.state;
     evt.preventDefault();
@@ -41,7 +47,7 @@ class App extends React.PureComponent<AppProps, AppState> {
           <h1>Shopping List</h1>
         </header>
         <form className="App-form" onSubmit={this.handleSubmit}>
-          <input type="text" name="item" value={textInput}/>
+          <input type="text" name="item" value={textInput} onChange={this.handleChange}/>
           <input type="submit" value="Submit"/>
         </form>
         <ul>
