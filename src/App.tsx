@@ -52,10 +52,10 @@ class App extends React.PureComponent<AppProps, AppState> {
           <input type="submit" value="Submit"/>
         </form>
         <ul className="App-list">
-            {todos.map((todo: Todo, i:number) => {
+            {todos.map((todo: Todo) => {
               return (
-                <li className={"App-listItem " + todo.isChecked ? "checked" : ""} key={i}>
-                  { todo.text } - { todo.isChecked ? 'checked' : 'not checked' }
+                <li className={`App-listItem${todo.isChecked ? " checked" : ""}`} key={ todo.id }>
+                  {`id ${ todo.id } - ${ todo.text }`}
                 </li>
               );
             })}
