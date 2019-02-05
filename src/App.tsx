@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { State } from './store';
 import { addTodo } from './store/actions';
+import { Todo } from './store/actionCreators';
 import './App.css';
 
 const mapStateToProps = (state: State) => ({ todos: state.todos });
 const mapDispatchToProps = { addTodo };
 
 type AppProps = {
-  todos: string[]
+  todos: Todo[]
   addTodo: typeof addTodo
 }
 
@@ -22,18 +23,18 @@ class App extends React.PureComponent<AppProps, AppState> {
   }
 
   handleChange = (evt: any) => {
-    const { textInput } = this.state;
     evt.preventDefault();
     this.setState({textInput: evt.target.value})
   }
 
   handleSubmit = (evt: any) =>  {
     const { textInput } = this.state;
+    const { addTodo } = this.props;
     evt.preventDefault();
     if (!textInput.trim()) {
       return
     }
-    this.props.addTodo(textInput)
+    addTodo(textInput)
     this.setState({textInput: ''})
   }
 
@@ -51,9 +52,11 @@ class App extends React.PureComponent<AppProps, AppState> {
           <input type="submit" value="Submit"/>
         </form>
         <ul className="App-list">
-            {todos.map((todo: string, i:number) => {
+            {todos.map((todo: Todo, i:number) => {
               return (
-                <li key={i}>{ todo }</li>
+                <li className={"App-listItem " + todo.isChecked ? "checked" : ""} key={i}>
+                  { todo.text } - { todo.isChecked ? 'checked' : 'not checked' }
+                </li>
               );
             })}
         </ul>

@@ -20,3 +20,11 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.App-listItem {
+  cursor: pointer;
+}
+
+.checked {
+  color: red;
+}
