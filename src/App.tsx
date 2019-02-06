@@ -1,18 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { State } from './store';
-import { fetchPic, addTodo, toggleChecked } from './store/actions';
+import { fetchPic, addTodo, toggleChecked, filterChange } from './store/actions';
+import { getVisibleTodos } from './store/selectors'
 import { Todo } from './store/actionCreators';
 import './App.css';
 
-const mapStateToProps = (state: State) => ({ todos: state.todos });
-const mapDispatchToProps = { fetchPic, addTodo, toggleChecked };
+const mapStateToProps = (state: State) => ({ todos: getVisibleTodos(state), filters: state.filter });
+const mapDispatchToProps = { fetchPic, addTodo, toggleChecked, filterChange };
 
 type AppProps = {
   todos: Todo[],
   addTodo: typeof addTodo,
   fetchPic: typeof fetchPic,
-  toggleChecked: typeof toggleChecked
+  toggleChecked: typeof toggleChecked,
+  filterChange: typeof filterChange
 }
 
 /*
@@ -47,8 +49,9 @@ class App extends React.PureComponent<AppProps, AppState> {
     this.setState({textInput: ''})
   }
 
-  filterChange = (evt: any) => {
-    this.setState({filter: evt.target.value})
+  handleFilter = (evt: any) => {
+    const { filterChange } = this.props;
+    filterChange(evt.target.value)
   }
 
   render() {
@@ -68,33 +71,30 @@ class App extends React.PureComponent<AppProps, AppState> {
           <label>
             <input
               type="radio"
-              name="react-tips"
               value="all"
               checked={this.state.filter === 'all'}
               className="form-check-input"
-              onChange={this.filterChange}
+              onChange={this.handleFilter}
             />
             All
           </label>
           <label>
             <input
               type="radio"
-              name="react-tips"
               value="done"
               checked={this.state.filter === 'done'}
               className="form-check-input"
-              onChange={this.filterChange}
+              onChange={this.handleFilter}
             />
             Done
           </label>
           <label>
             <input
               type="radio"
-              name="react-tips"
-              value="to do"
-              checked={this.state.filter === 'to do'}
+              value="to_do"
+              checked={this.state.filter === 'to_do'}
               className="form-check-input"
-              onChange={this.filterChange}
+              onChange={this.handleFilter}
             />
             To do
           </label>
