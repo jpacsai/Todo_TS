@@ -17,6 +17,7 @@ export const addTodo = (todo: string, imgUrl: string) => {
     id: id++,
     imgUrl
   }
+  console.log(todoObj)
   return action(actionNames.ADD_TODO, todoObj)
 };
 

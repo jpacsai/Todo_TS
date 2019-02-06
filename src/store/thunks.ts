@@ -10,5 +10,6 @@ export type Thunk = (
 
 export const fetchPic = (inputText: string): Thunk => async dispatch => {
   const imgUrl = await dispatch(fetchImgUrl(inputText));
+  console.log(imgUrl);
   dispatch(addTodo(inputText, imgUrl));
 };
