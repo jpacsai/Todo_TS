@@ -61,8 +61,9 @@ class App extends React.PureComponent<AppProps, AppState> {
                   console.log(todo.isChecked)
                   toggleChecked(todo)
                 }}>
-                  <p>{`id ${ todo.id } - ${ todo.text }`}</p>
-                  <img src={todo.imgUrl} alt={todo.text}/>
+                  <p>{ todo.id }</p>
+                  <p>{ todo.text }</p>
+                  <img src={todo.imgUrl} alt={todo.text} className="list-img"/>
                 </li>
               );
             })}
