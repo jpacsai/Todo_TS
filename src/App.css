@@ -2,12 +2,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .App-form {
-  width: 300px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+.App-filter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .App-input {

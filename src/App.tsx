@@ -15,13 +15,20 @@ type AppProps = {
   toggleChecked: typeof toggleChecked
 }
 
+/*
+type filterTypes = 'all'|'checked'|'unchecked';
+
+*/
+
 type AppState = {
-  textInput: string
+  textInput: string,
+  filter: string
 }
 
 class App extends React.PureComponent<AppProps, AppState> {
   state = {
-    textInput: ''
+    textInput: '',
+    filter: 'all'
   }
 
   handleChange = (evt: any) => {
@@ -40,6 +47,10 @@ class App extends React.PureComponent<AppProps, AppState> {
     this.setState({textInput: ''})
   }
 
+  filterChange = (evt: any) => {
+    this.setState({filter: evt.target.value})
+  }
+
   render() {
     const { textInput } = this.state;
     const { todos, toggleChecked } = this.props;
@@ -52,6 +63,41 @@ class App extends React.PureComponent<AppProps, AppState> {
         <form className="App-form" onSubmit={this.handleSubmit}>
           <input className="App-input" type="text" name="item" value={textInput} onChange={this.handleChange}/>
           <input type="submit" value="Submit"/>
+        </form>
+        <form className="App-filter">
+          <label>
+            <input
+              type="radio"
+              name="react-tips"
+              value="all"
+              checked={this.state.filter === 'all'}
+              className="form-check-input"
+              onChange={this.filterChange}
+            />
+            All
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="react-tips"
+              value="done"
+              checked={this.state.filter === 'done'}
+              className="form-check-input"
+              onChange={this.filterChange}
+            />
+            Done
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="react-tips"
+              value="to do"
+              checked={this.state.filter === 'to do'}
+              className="form-check-input"
+              onChange={this.filterChange}
+            />
+            To do
+          </label>
         </form>
         <ul className="App-list">
             {todos.map((todo: Todo) => {
