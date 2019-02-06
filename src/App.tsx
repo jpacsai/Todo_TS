@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { State } from './store';
-import { addTodo } from './store/actions';
+import { addTodo, toggleChecked } from './store/actions';
 import { Todo } from './store/actionCreators';
 import './App.css';
 
 const mapStateToProps = (state: State) => ({ todos: state.todos });
-const mapDispatchToProps = { addTodo };
+const mapDispatchToProps = { addTodo, toggleChecked };
 
 type AppProps = {
-  todos: Todo[]
-  addTodo: typeof addTodo
+  todos: Todo[],
+  addTodo: typeof addTodo,
+  toggleChecked: typeof toggleChecked
 }
 
 type AppState = {
@@ -54,7 +55,11 @@ class App extends React.PureComponent<AppProps, AppState> {
         <ul className="App-list">
             {todos.map((todo: Todo) => {
               return (
-                <li className={`App-listItem${todo.isChecked ? " checked" : ""}`} key={ todo.id }>
+                <li className={`App-listItem${todo.isChecked ? " checked" : ""}`} key={ todo.id }
+                onClick={ () => {
+                  console.log(todo.isChecked)
+                  this.props.toggleChecked(todo)
+                }}>
                   {`id ${ todo.id } - ${ todo.text }`}
                 </li>
               );

@@ -17,3 +17,5 @@ export const addTodo = (todo: string) => {
   }
   return action(actionNames.ADD_TODO, todoObj)
 };
+
+export const toggleChecked = (todo: Todo) => action(actionNames.TOGGLE_CHECK, todo);

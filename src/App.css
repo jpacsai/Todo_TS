@@ -26,5 +26,6 @@
 }
 
 .checked {
-  color: red;
+  color: grey;
+  text-decoration: line-through;
 }
