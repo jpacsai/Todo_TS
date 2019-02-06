@@ -4,8 +4,6 @@ import { State } from './store';
 import { fetchPic, addTodo, toggleChecked } from './store/actions';
 import { Todo } from './store/actionCreators';
 import './App.css';
-import { StringOrSymbol } from 'typesafe-actions/dist/types';
-import { async } from 'q';
 
 const mapStateToProps = (state: State) => ({ todos: state.todos });
 const mapDispatchToProps = { fetchPic, addTodo, toggleChecked };
@@ -31,20 +29,20 @@ class App extends React.PureComponent<AppProps, AppState> {
     this.setState({textInput: evt.target.value})
   }
 
-  handleSubmit = async (evt: any) =>  {
+  handleSubmit = (evt: any) =>  {
     const { textInput } = this.state;
-    const { addTodo, fetchPic } = this.props;
+    const { fetchPic } = this.props;
     evt.preventDefault();
     if (!textInput.trim()) {
       return
     }
-    const imgUrl = async (await fetchPic(textInput)) as any;
+    fetchPic(textInput.trim());
     this.setState({textInput: ''})
   }
 
   render() {
     const { textInput } = this.state;
-    const { todos } = this.props;
+    const { todos, toggleChecked } = this.props;
 
     return (
       <div className="App">
@@ -61,9 +59,9 @@ class App extends React.PureComponent<AppProps, AppState> {
                 <li className={`App-listItem${todo.isChecked ? " checked" : ""}`} key={ todo.id }
                 onClick={ () => {
                   console.log(todo.isChecked)
-                  this.props.toggleChecked(todo)
+                  toggleChecked(todo)
                 }}>
-                  {`id ${ todo.id } - ${ todo.text }`}
+                  <p>{`id ${ todo.id } - ${ todo.text }`}</p>
                   <img src={todo.imgUrl} alt={todo.text}/>
                 </li>
               );
