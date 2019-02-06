@@ -6,14 +6,16 @@ let id = 0;
 export type Todo = {
     text: string,
     isChecked: boolean,
-    id: number
+    id: number,
+    imgUrl: string
 }
 
-export const addTodo = (todo: string) => {
+export const addTodo = (todo: string, imgUrl: string) => {
   const todoObj: Todo = {
     text: todo,
     isChecked: false,
-    id: id++
+    id: id++,
+    imgUrl
   }
   return action(actionNames.ADD_TODO, todoObj)
 };

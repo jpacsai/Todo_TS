@@ -8,9 +8,7 @@ export default (state: Todo[] = [], action: Actions): Todo[] => {
       return [...state, action.payload];
     case TOGGLE_CHECK:
       return [...state].map(todo => {
-        if (todo.id === action.payload.id) {
-          todo.isChecked = !todo.isChecked
-        }
+        if (todo.id === action.payload.id) todo.isChecked = !todo.isChecked
         return todo;
       });
     default:

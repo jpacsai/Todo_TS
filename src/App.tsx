@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { State } from './store';
-import { addTodo, toggleChecked } from './store/actions';
+import { fetchPic, addTodo, toggleChecked } from './store/actions';
 import { Todo } from './store/actionCreators';
 import './App.css';
+import { StringOrSymbol } from 'typesafe-actions/dist/types';
+import { async } from 'q';
 
 const mapStateToProps = (state: State) => ({ todos: state.todos });
-const mapDispatchToProps = { addTodo, toggleChecked };
+const mapDispatchToProps = { fetchPic, addTodo, toggleChecked };
 
 type AppProps = {
   todos: Todo[],
   addTodo: typeof addTodo,
+  fetchPic: typeof fetchPic,
   toggleChecked: typeof toggleChecked
 }
 
@@ -28,14 +31,14 @@ class App extends React.PureComponent<AppProps, AppState> {
     this.setState({textInput: evt.target.value})
   }
 
-  handleSubmit = (evt: any) =>  {
+  handleSubmit = async (evt: any) =>  {
     const { textInput } = this.state;
-    const { addTodo } = this.props;
+    const { addTodo, fetchPic } = this.props;
     evt.preventDefault();
     if (!textInput.trim()) {
       return
     }
-    addTodo(textInput)
+    const imgUrl = async (await fetchPic(textInput)) as any;
     this.setState({textInput: ''})
   }
 
@@ -61,6 +64,7 @@ class App extends React.PureComponent<AppProps, AppState> {
                   this.props.toggleChecked(todo)
                 }}>
                   {`id ${ todo.id } - ${ todo.text }`}
+                  <img src={todo.imgUrl} alt={todo.text}/>
                 </li>
               );
             })}
