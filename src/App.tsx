@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { State } from './store';
 import { fetchPic, addTodo, toggleChecked, filterChange } from './store/actions';
 import { getVisibleTodos } from './store/selectors'
-import { Todo } from './store/actionCreators';
+import { Todo, FilterType } from './store/actionCreators';
 import './App.css';
 
-const mapStateToProps = (state: State) => ({ todos: getVisibleTodos(state), filters: state.filter });
+const mapStateToProps = (state: State) => ({ todos: getVisibleTodos(state), filter: state.filter });
 const mapDispatchToProps = { fetchPic, addTodo, toggleChecked, filterChange };
 
 type AppProps = {
@@ -14,23 +14,17 @@ type AppProps = {
   addTodo: typeof addTodo,
   fetchPic: typeof fetchPic,
   toggleChecked: typeof toggleChecked,
-  filterChange: typeof filterChange
+  filterChange: typeof filterChange,
+  filter: FilterType
 }
 
-/*
-type filterTypes = 'all'|'checked'|'unchecked';
-
-*/
-
 type AppState = {
-  textInput: string,
-  filter: string
+  textInput: string
 }
 
 class App extends React.PureComponent<AppProps, AppState> {
   state = {
-    textInput: '',
-    filter: 'all'
+    textInput: ''
   }
 
   handleChange = (evt: any) => {
@@ -56,7 +50,7 @@ class App extends React.PureComponent<AppProps, AppState> {
 
   render() {
     const { textInput } = this.state;
-    const { todos, toggleChecked } = this.props;
+    const { todos, toggleChecked, filter } = this.props;
 
     return (
       <div className="App">
@@ -72,7 +66,7 @@ class App extends React.PureComponent<AppProps, AppState> {
             <input
               type="radio"
               value="all"
-              checked={this.state.filter === 'all'}
+              checked={filter == 'all'}
               className="form-check-input"
               onChange={this.handleFilter}
             />
@@ -82,7 +76,7 @@ class App extends React.PureComponent<AppProps, AppState> {
             <input
               type="radio"
               value="done"
-              checked={this.state.filter === 'done'}
+              checked={filter == 'done'}
               className="form-check-input"
               onChange={this.handleFilter}
             />
@@ -92,7 +86,7 @@ class App extends React.PureComponent<AppProps, AppState> {
             <input
               type="radio"
               value="to_do"
-              checked={this.state.filter === 'to_do'}
+              checked={filter == 'to_do'}
               className="form-check-input"
               onChange={this.handleFilter}
             />

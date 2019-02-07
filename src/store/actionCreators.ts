@@ -17,12 +17,14 @@ export const addTodo = (todo: string, imgUrl: string) => {
     id: id++,
     imgUrl
   }
-  return action(actionNames.ADD_TODO, todoObj)
+  return action(actionNames.ADD_TODO, todoObj);
 };
 
 export const toggleChecked = (todo: Todo) => action(actionNames.TOGGLE_CHECK, todo);
 
-export const filterChange = (filter: string) => {
-  console.log(filter)
-  action(actionNames.FILTER_CHANGE, filter)
+export type FilterType = 'all' | 'done' | 'to_do';
+
+export const filterChange = (filter: FilterType) => {
+  console.log(filter);
+  return action(actionNames.FILTER_CHANGE, filter);
 };
