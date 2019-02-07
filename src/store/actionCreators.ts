@@ -22,6 +22,10 @@ export const addTodo = (todo: string, imgUrl: string) => {
   return action(actionNames.ADD_TODO, todoObj);
 };
 
+// ----- DELETE ALL TODOS ----- ///
+
+export const clearTodos = () => action(actionNames.CLEAR_TODOS);
+
 // ----- TOGGLE CHECKED ----- //
 
 export const toggleChecked = (todo: Todo) => action(actionNames.TOGGLE_CHECK, todo);

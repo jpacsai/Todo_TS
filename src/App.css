@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.clear-btn {
+  margin: 10px 0;
+}
+
 .App-filter {
   display: flex;
   justify-content: space-between;

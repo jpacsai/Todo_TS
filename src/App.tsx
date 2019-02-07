@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { State } from './store';
-import { fetchPic, addTodo, toggleChecked, filterChange } from './store/actions';
+import { fetchPic, clearTodos, toggleChecked, filterChange } from './store/actions';
 import { getVisibleTodos } from './store/selectors'
 import { Todo, FilterType } from './store/actionCreators';
 import './App.css';
 
 const mapStateToProps = (state: State) => ({ todos: getVisibleTodos(state), filter: state.filter });
-const mapDispatchToProps = { fetchPic, addTodo, toggleChecked, filterChange };
+const mapDispatchToProps = { fetchPic, clearTodos, toggleChecked, filterChange };
 
 type AppProps = {
   todos: Todo[],
-  addTodo: typeof addTodo,
+  clearTodos: typeof clearTodos;
   fetchPic: typeof fetchPic,
   toggleChecked: typeof toggleChecked,
   filterChange: typeof filterChange,
@@ -49,6 +49,11 @@ class App extends React.PureComponent<AppProps, AppState> {
     filterChange(evt.target.value)
   }
 
+  handleRemove = () => {
+    const { clearTodos } = this.props;
+    clearTodos();
+  }
+
   render() {
     const { textInput } = this.state;
     const { todos, toggleChecked, filter } = this.props;
@@ -62,6 +67,7 @@ class App extends React.PureComponent<AppProps, AppState> {
           <input className="App-input" type="text" name="item" value={textInput} onChange={this.handleChange}/>
           <input type="submit" value="Submit"/>
         </form>
+        <button className="clear-btn" onClick={this.handleRemove}>Clear shopping list</button>
         <form className="App-filter">
           <label>
             <input
