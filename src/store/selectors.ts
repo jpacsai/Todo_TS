@@ -1,5 +1,6 @@
 import { State } from './';
-import { Todo, FilterType } from './actionCreators'
+import { Todo } from './reducers/todos';
+import { Filter } from './reducers/filter';
 import { createSelector } from 'reselect';
 
 const getTodos = (state: State) => state.todos;
@@ -7,24 +8,26 @@ const getFilter = (state: State) => state.filter;
 
 export const getVisibleTodos = createSelector(
   [getTodos, getFilter],
-  (todos: Todo[], filter: FilterType) => {
+  (todos: Todo[], filter: Filter) => {
     switch (filter) {
-      case 'all':
+      case Filter.all:
         return todos;
-      case 'done':
+      case Filter.done:
         return todos.filter(t => t.isChecked);
-      case 'to_do':
+      case Filter.todo:
         return todos.filter(t => !t.isChecked);
+      default:
+        return todos;
     }
   }
 );
 
-export const countAllTodos = createSelector(
+export const getCountOfAll = createSelector(
   [getTodos],
   (todos: Todo[]) => todos.length
 );
 
-export const countVisibleTodos = createSelector(
+export const getCountOfVisibles = createSelector(
   [getVisibleTodos],
   (todos: Todo[]) => todos.length
 );

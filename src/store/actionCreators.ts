@@ -1,25 +1,12 @@
 import { action } from 'typesafe-actions';
 import * as actionNames from './actionNames';
+import { Todo } from './reducers/todos';
+import { Filter } from './reducers/filter';
 
 // ----- ADD TODO ----- //
 
-let id = 0;
-
-export type Todo = {
-    text: string,
-    isChecked: boolean,
-    id: number,
-    imgUrl: string
-}
-
-export const addTodo = (todo: string, imgUrl: string) => {
-  const todoObj: Todo = {
-    text: todo,
-    isChecked: false,
-    id: id++,
-    imgUrl
-  }
-  return action(actionNames.ADD_TODO, todoObj);
+export const addTodo = (text: string, imgUrl: string) => {
+  return action(actionNames.ADD_TODO, { text, imgUrl });
 };
 
 // ----- DELETE ALL TODOS ----- ///
@@ -28,10 +15,9 @@ export const clearTodos = () => action(actionNames.CLEAR_TODOS);
 
 // ----- TOGGLE CHECKED ----- //
 
-export const toggleChecked = (todo: Todo) => action(actionNames.TOGGLE_CHECK, todo);
+export const toggleChecked = (id: number) => action(actionNames.TOGGLE_CHECK, id);
+// TODO csak id
 
 // ----- FILTER CHANGE ----- //
 
-export type FilterType = 'all' | 'done' | 'to_do';
-
-export const filterChange = (filter: FilterType) => action(actionNames.FILTER_CHANGE, filter);
+export const changeFilter = (filter: Filter) => action(actionNames.FILTER_CHANGE, filter);
