@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { ExtraArguments, State } from './';
-import { addTodo } from './actionCreators'
+import { addTodo } from './actionCreators';
 
 export type Thunk = (
   dispatch: (action: Action | Thunk) => any,

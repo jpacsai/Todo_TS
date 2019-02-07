@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-import fetchPic from './utils/fetchPic'
+import fetchPic from './utils/fetchPic';
 
 const extraArguments = { fetchPic };
 export type ExtraArguments = typeof extraArguments;
