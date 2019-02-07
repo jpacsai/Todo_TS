@@ -12,8 +12,19 @@
   width: 100%;
 }
 
+.info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.info-section p {
+  margin: 10px 0 0 0;
+}
+
 .clear-btn {
-  margin: 10px 0;
+  width: 190px;
 }
 
 .App-filter {

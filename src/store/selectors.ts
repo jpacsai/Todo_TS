@@ -18,3 +18,13 @@ export const getVisibleTodos = createSelector(
     }
   }
 );
+
+export const countAllTodos = createSelector(
+  [getTodos],
+  (todos: Todo[]) => todos.length
+);
+
+export const countVisibleTodos = createSelector(
+  [getVisibleTodos],
+  (todos: Todo[]) => todos.length
+);
