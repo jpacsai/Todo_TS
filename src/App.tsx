@@ -34,11 +34,12 @@ class App extends React.PureComponent<AppProps, AppState> {
 
   handleSubmit = (evt: any) =>  {
     const { textInput } = this.state;
-    const { fetchPic } = this.props;
+    const { fetchPic, filterChange } = this.props;
     evt.preventDefault();
     if (!textInput.trim()) {
       return
     }
+    filterChange('all');
     fetchPic(textInput.trim());
     this.setState({textInput: ''})
   }
@@ -98,7 +99,6 @@ class App extends React.PureComponent<AppProps, AppState> {
               return (
                 <li className={`App-listItem${todo.isChecked ? " checked" : ""}`} key={ todo.id }
                 onClick={ () => {
-                  console.log(todo.isChecked)
                   toggleChecked(todo)
                 }}>
                   <p>{ todo.id }</p>
