@@ -133,7 +133,12 @@ class App extends React.PureComponent<AppProps, AppState> {
               >
                 <p>{todo.id}</p>
                 <p>{todo.text}</p>
-                <img src={todo.imgUrl} alt={todo.text} className="list-img" />
+                <div className="img-container">
+                  <img src={todo.imgUrl} alt={todo.text} className="list-img" />
+                  { todo.isChecked && 
+                    <div className="status-tag">complete</div>
+                  }
+                </div>
               </li>
             );
           })}
